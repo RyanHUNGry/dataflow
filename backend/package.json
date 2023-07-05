@@ -1,0 +1,21 @@
+{
+  "name": "dataflow-be",
+  "version": "1.0.0",
+  "description": "Dataflow REST API",
+  "main": "server.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js",
+    "watch": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RyanHUNGry/dataflow.git"
+  },
+  "author": "Ryan Hung",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/RyanHUNGry/dataflow/issues"
+  },
+  "homepage": "https://github.com/RyanHUNGry/dataflow#readme"
+}
