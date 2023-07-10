@@ -1,8 +1,8 @@
 const express = require('express')
 const flowsRouter = express.Router()
 
-const {getFlows} = require('./flows.controller')
+const { getAllFlows } = require('./flows.controller')
 
-flowsRouter.get('/', getFlows)
+flowsRouter.get('/', getAllFlows)
 
 module.exports = flowsRouter
