@@ -6,10 +6,11 @@
 
 
 const getAllFlows = (req, res) => {
+    console.log(req.user)
     res.status(200).json({flow: 1})
 }
 
-const createFlow = (req, res) => {
+const createFlow = async (req, res) => {
     const data = req.body
     const { title } = data
 
