@@ -8,9 +8,9 @@ const db = knex(knexfile.development)
 const testDbConnection = async (db) => {
     try {
         await db.raw("SELECT 1")
-        console.log("Database active") 
+        console.log("✅ Database activated") 
     } catch (err) {
-        console.log("Database inactive", err)
+        console.log("✅ Database inactivated", err)
     }
 }
 

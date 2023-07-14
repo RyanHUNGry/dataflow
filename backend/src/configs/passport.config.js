@@ -9,7 +9,6 @@ const ops = {
     secretOrKey: process.env.DEV_JWT_SECRET
 }
 
-// At each protected route, this middleware runs and automatically decrypts JWT payload, finds user with correct ID, and returns ID in req.user
 const setupPassport = (passport) => {
     passport.use(new JwtStrategy(ops, async (jwt_payload, done) => {
         const [user] = await usersModel.getUserByUid(jwt_payload.uid)

@@ -3,10 +3,21 @@ const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const refreshTokensModel = require('../../models/refreshTokens.model')
 
-const getAllUsers = (req, res) => {
-    res.status(200).json({ user: 1 })
-}
-
+/**
+ * @public
+ * POST /users/signup
+ * Register a user.
+ *
+ * This endpoint registers a user into the database with password encryption.
+ *
+ * @param {object} req.body - user information.
+ *  - email, firstName, lastName, password
+ * 
+ * @returns {object} The newly created user.
+ * 
+ * @throws {400} - If fields are missing.
+ * @throws {400} - If email already exists.
+ */
 const signupUser = async (req, res) => {
     const data = { ...req.body }
     const { email, firstName, lastName, password } = data
@@ -31,6 +42,22 @@ const signupUser = async (req, res) => {
     return res.status(201).json(newUser)
 }
 
+/**
+ * @public
+ * POST /users/login
+ * Login a user.
+ *
+ * This endpoint authenticates a user by issuing a JWT access and refresh token.
+ * It stores the new refresh token into the database for the user, or updates existing refresh token with new one.
+ *
+ * @param {object} req.body - user information
+ *  - email, password
+ * 
+ * @returns {object} The JWT access and refresh token.
+ * 
+ * @throws {400} - If fields are missing.
+ * @throws {400} - If email or password is invalid.
+ */
 const loginUser = async (req, res) => {
     const data = { ...req.body }
     const { email, password } = data
@@ -81,6 +108,24 @@ const loginUser = async (req, res) => {
     return res.status(200).json({ token, refreshToken })
 }
 
+/**
+ * @public
+ * POST /users/token
+ * Issues a new access token with refresh token.
+ *
+ * This endpoint issues a new JWT access token given a JWT refresh token. 
+ * It checks for the refresh token's validity, and constructs a new JWT access token with 
+ * the user ID contained in the refresh token.
+ *
+ * @param {object} req.body - refresh token
+ *  - refreshToken
+ * 
+ * @returns {object} The JWT access token.
+ * 
+ * @throws {400} - If fields are missing.
+ * @throws {400} - If refresh token is expired or mistyped.
+ * @throws {400} - If refresh token has been revoked even though it is still valid.
+ */
 const refreshAccessToken = async (req, res) => {
     // Take in refresh token from body
     const data = { ...req.body }
@@ -116,6 +161,23 @@ const refreshAccessToken = async (req, res) => {
     return res.status(200).json({ token })
 }
 
+/**
+ * @public
+ * POST /users/logout
+ * Revokes existing JWT refresh token.
+ *
+ * This endpoint revokes the current JWT refresh token by deleting it from the database.
+ * This essentially logs a user out, as they have to authenticate again to obtain another refresh token.
+ *
+ * @param {object} req.body - refresh token
+ *  - refreshToken
+ * 
+ * @returns {object} The deleted JWT access token.
+ * 
+ * @throws {400} - If fields are missing.
+ * @throws {400} - If refresh token is expired or mistyped.
+ * @throws {400} - If refresh token has already been revoked.
+ */
 const logoutUser = async (req, res) => {
     // Take in refresh token from body
     const data = { ...req.body }
@@ -146,7 +208,6 @@ const logoutUser = async (req, res) => {
 }
 
 module.exports = {
-    getAllUsers,
     signupUser,
     loginUser,
     refreshAccessToken,

@@ -15,6 +15,7 @@ const getUserByEmail = async (email) => {
     return await db('users').where({ email }).select("*")
 }
 
+
 const getUserByUid = async (uid) => {
     return await db('users').where({ uid }).select("*")
 }

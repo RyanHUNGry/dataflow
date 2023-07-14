@@ -1,9 +1,9 @@
 const express = require('express')
 const morgan = require('morgan')
 
+const passport = require('../src/configs/passport.config')
 const flowsRouter = require('./api/routes/flows/flows.router')
 const usersRouter = require('./api/routes/users/users.router')
-const passport = require('../src/configs/passport.config')
 
 const app = express()
 

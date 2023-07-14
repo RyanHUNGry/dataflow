@@ -10,7 +10,7 @@ const startServer = async (db) => {
     const PORT = process.env.port || 8000
 
     server.listen(PORT, () => {
-        console.log(`Serving listening on port ${PORT}`)
+        console.log(`✅ Server activated on ${PORT}`)
     })
 }
 
