@@ -68,7 +68,7 @@ const loginUser = async (req, res) => {
     }
 
     // Validate user email
-    const [user] = await usersModel.getUserByEmail(email)
+    const user = await usersModel.getUserByEmail(email)
     if (!user) {
         return res.status(400).json({ error: "Invalid credentials" })
     }

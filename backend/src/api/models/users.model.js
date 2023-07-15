@@ -1,7 +1,7 @@
 const { db } = require('../../../db/db')
 
 const createUser = async ({ email, firstName, lastName, password }) => {
-    const newUser = await db('users').insert({
+    const [ newUser ] = await db('users').insert({
         email,
         first_name: firstName,
         last_name: lastName,
@@ -12,7 +12,8 @@ const createUser = async ({ email, firstName, lastName, password }) => {
 }
 
 const getUserByEmail = async (email) => {
-    return await db('users').where({ email }).select("*")
+    const [ user ] = await db('users').where({ email }).select("*")
+    return user 
 }
 
 
