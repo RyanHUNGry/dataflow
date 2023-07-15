@@ -4,7 +4,7 @@
   "description": "Dataflow REST API",
   "main": "server.js",
   "scripts": {
-    "test": "jest",
+    "unit-test": "mocha ./tests/unit/*.test.js",
     "start": "node ./src/server.js",
     "watch": "nodemon ./src/server.js",
     "migrate": "npx knex migrate:latest --knexfile ./db/knexfile.js",
@@ -21,7 +21,11 @@
   },
   "homepage": "https://github.com/RyanHUNGry/dataflow#readme",
   "devDependencies": {
-    "nodemon": "^2.0.22"
+    "chai": "^4.3.7",
+    "mocha": "^10.2.0",
+    "nodemon": "^2.0.22",
+    "sinon": "^15.2.0",
+    "sinon-test": "^3.1.5"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",

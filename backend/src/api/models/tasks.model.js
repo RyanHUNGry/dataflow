@@ -16,7 +16,17 @@ const getTitleByFid = async ({ fid, title }) => {
     return tasks
 }
 
+const checkTaskValidity = async ({tid, fid}) => {
+    return await db('tasks').where({tid, fid}).select("*")
+}
+
+const deleteTaskByTid = async ({tid}) => {
+    return await db('tasks').where({tid}).del().returning("*")
+}
+
 module.exports = {
     createTask,
-    getTitleByFid
+    getTitleByFid,
+    checkTaskValidity,
+    deleteTaskByTid
 }
