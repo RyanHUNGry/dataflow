@@ -1,4 +1,4 @@
-const { db } = require('../../../db/db')
+const { db } = require('../../../db/dev_db')
 
 const createUser = async ({ email, firstName, lastName, password }) => {
     const [ newUser ] = await db('users').insert({

@@ -4,11 +4,16 @@
   "description": "Dataflow REST API",
   "main": "server.js",
   "scripts": {
-    "unit-test": "mocha ./tests/unit/*.test.js",
     "start": "node ./src/server.js",
     "watch": "nodemon ./src/server.js",
+    "unit-tests": "mocha ./tests/unit/*.test.js",
+    "integration-tests": "mocha ./tests/integration/*.test.js",
     "migrate": "npx knex migrate:latest --knexfile ./db/knexfile.js",
-    "undo": "npx knex migrate:down --knexfile ./db/knexfile.js"
+    "migrate-test": "npx knex migrate:latest --knexfile ./db/knexfile.js --env test",
+    "rollback-test": "npx knex migrate:rollback --knexfile ./db/knexfile.js --env test",
+    "undo-test": "npx knex migrate:down --knexfile ./db/knexfile.js --env test",
+    "undo": "npx knex migrate:down --knexfile ./db/knexfile.js",
+    "rollback": "npx knex migrate:rollback --knexfile ./db/knexfile.js"
   },
   "repository": {
     "type": "git",
@@ -24,13 +29,12 @@
     "chai": "^4.3.7",
     "mocha": "^10.2.0",
     "nodemon": "^2.0.22",
-    "sinon": "^15.2.0",
-    "sinon-test": "^3.1.5"
+    "sinon": "^15.2.0"
   },
   "dependencies": {
     "bcrypt": "^5.1.0",
+    "chai-http": "^4.4.0",
     "crypto": "^1.0.1",
-    "dataflow-project": "file:..",
     "dotenv": "^16.3.1",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.1",

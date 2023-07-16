@@ -1,4 +1,4 @@
-const { db } = require('../../../db/db')
+const { db } = require('../../../db/dev_db')
 
 const createTask = async ({ fid, title, description }) => {
     const newTask = await db('tasks').insert({

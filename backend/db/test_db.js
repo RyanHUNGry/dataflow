@@ -2,7 +2,7 @@ const knex = require('knex')
 const knexfile = require('./knexfile')
 
 // When production is ready, make sure to switch env vars
-const db = knex(knexfile.development)
+const db = knex(knexfile.test)
 
 // Function to test database connection
 const testDbConnection = async (db) => {
@@ -14,4 +14,4 @@ const testDbConnection = async (db) => {
     }
 }
 
-module.exports = { testDbConnection, db};
+module.exports = { testDbConnection, db };

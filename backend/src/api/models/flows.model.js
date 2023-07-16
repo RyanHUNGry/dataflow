@@ -1,4 +1,4 @@
-const { db } = require('../../../db/db');
+const { db } = require('../../../db/dev_db');
 
 // Adds a new flow in flows table
 const createFlow = async ({ title, description }) => {
