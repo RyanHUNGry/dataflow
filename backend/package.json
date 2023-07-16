@@ -6,14 +6,14 @@
   "scripts": {
     "start": "node ./src/server.js",
     "watch": "nodemon ./src/server.js",
-    "unit-tests": "mocha ./tests/unit/*.test.js",
-    "integration-tests": "mocha ./tests/integration/*.test.js",
+    "unit-tests": "mocha ./tests/unit/*.test.js --exit",
+    "integration-tests": "SET NODE_ENV=test&& mocha ./tests/integration/*.test.js --exit",
     "migrate": "npx knex migrate:latest --knexfile ./db/knexfile.js",
     "migrate-test": "npx knex migrate:latest --knexfile ./db/knexfile.js --env test",
-    "rollback-test": "npx knex migrate:rollback --knexfile ./db/knexfile.js --env test",
+    "rollback-test": "npx knex migrate:rollback --all --knexfile ./db/knexfile.js --env test",
     "undo-test": "npx knex migrate:down --knexfile ./db/knexfile.js --env test",
     "undo": "npx knex migrate:down --knexfile ./db/knexfile.js",
-    "rollback": "npx knex migrate:rollback --knexfile ./db/knexfile.js"
+    "rollback": "npx knex migrate:rollback --all --knexfile ./db/knexfile.js"
   },
   "repository": {
     "type": "git",

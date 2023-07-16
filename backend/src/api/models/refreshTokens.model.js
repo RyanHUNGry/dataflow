@@ -1,4 +1,4 @@
-const { db } = require('../../../db/dev_db');
+const { db } = require('../../../db/db');
 
 const createRefreshToken = async ({ uid, refreshToken }) => {
     const newRefreshToken = await db('refresh_tokens')

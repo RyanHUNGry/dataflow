@@ -1,4 +1,4 @@
-const { db } = require('../../../db/dev_db')
+const { db } = require('../../../db/db')
 
 const createUser = async ({ email, firstName, lastName, password }) => {
     const [ newUser ] = await db('users').insert({
@@ -12,7 +12,7 @@ const createUser = async ({ email, firstName, lastName, password }) => {
 }
 
 const getUserByEmail = async (email) => {
-    const [ user ] = await db('users').where({ email }).select("*")
+    const [user] = await db('users').where({ email }).select("*")
     return user 
 }
 

@@ -2,7 +2,7 @@ require('dotenv').config()
 
 const http = require('http')
 const app = require('./app')
-const { testDbConnection, db } = require('../db/dev_db')
+const { testDbConnection, db } = require('../db/db')
 
 const startServer = async (db) => {
     await testDbConnection(db)

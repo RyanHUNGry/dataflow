@@ -12,7 +12,10 @@ app.use(express.urlencoded({
     extended: true
 }))
 
-app.use(morgan('dev'))
+if (process.env.NODE_ENV === 'development') {
+    app.use(morgan('dev'))
+}
+
 app.use(passport.initialize())
 
 app.use('/flows', flowsRouter)

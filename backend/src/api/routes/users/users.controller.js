@@ -28,8 +28,9 @@ const signupUser = async (req, res) => {
     }
 
     // Validate user email
-    const doesUserExist = (await usersModel.getUserByEmail(email)).length !== 0
-    if (doesUserExist) {
+    const user = (await usersModel.getUserByEmail(email))
+
+    if (user) {
         return res.status(400).json({ error: "Email already exists" })
     }
 
