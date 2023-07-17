@@ -13,7 +13,8 @@
     "rollback-test": "npx knex migrate:rollback --all --knexfile ./db/knexfile.js --env test",
     "undo-test": "npx knex migrate:down --knexfile ./db/knexfile.js --env test",
     "undo": "npx knex migrate:down --knexfile ./db/knexfile.js",
-    "rollback": "npx knex migrate:rollback --all --knexfile ./db/knexfile.js"
+    "rollback": "npx knex migrate:rollback --all --knexfile ./db/knexfile.js",
+    "start-container": "npm run migrate && npm start"
   },
   "repository": {
     "type": "git",

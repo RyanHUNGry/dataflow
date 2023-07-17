@@ -8,6 +8,8 @@ if (process.env.NODE_ENV === 'development') {
     db = knex(knexfile.development)
 } else if (process.env.NODE_ENV === 'test') {
     db = knex(knexfile.test)
+} else if (process.env.NODE_ENV === 'production') {
+    db = knex(knexfile.production)
 }
 
 
