@@ -1,3 +1,5 @@
+// SEEDS ARE LOW-PRIO WIP - no functionality yet
+
 const { generateUsers } = require("../../../util/generate");
 
 /**
