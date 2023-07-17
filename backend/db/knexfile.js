@@ -15,6 +15,9 @@ module.exports = {
     },
     migrations: {
       tableName: 'knex_migrations'
+    },
+    seeds: {
+      directory: './seeds/dev'
     }
   },
   test: {
@@ -30,6 +33,9 @@ module.exports = {
     },
     migrations: {
       tableName: 'knex_migrations'
+    },
+    seeds: {
+      directory: './seeds/test' // No seeds in use currently, can use for more involved integration tests
     }
   },
   production: {
@@ -46,6 +52,6 @@ module.exports = {
     },
     migrations: {
       tableName: 'knex_migrations'
-    }
+    },
   },
 };
