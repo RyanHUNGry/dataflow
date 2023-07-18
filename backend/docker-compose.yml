@@ -26,8 +26,3 @@ services:
       - POSTGRES_PASSWORD=test
       - POSTGRES_DB=dataflow
       - POSTGRES_HOST=postgres
-
-
-# Create DB with postgres
-# link environment variables with dataflow-api service
-# 
