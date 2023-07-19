@@ -3,10 +3,10 @@
   "version": "1.0.0",
   "description": "Dataflow project",
   "scripts": {
-    "install-all": "npm i --prefix backend & npm i --prefix client",
+    "install-all": "npm i --prefix backend & npm i --prefix app",
     "server": "npm start --prefix backend",
-    "client": "npm start --prefix client",
-    "start-app": "concurrently \"npm run server\" \"npm run client\""
+    "app": "npm start --prefix app",
+    "start-app": "concurrently \"npm run server\" \"npm run app\""
   },
   "repository": {
     "type": "git",
