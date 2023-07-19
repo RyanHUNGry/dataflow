@@ -71,4 +71,75 @@ describe("Users controllers", () => {
             expect(response._body).to.have.property('password').to.be.a('string')
         })
     })
+
+    describe('User login', () => {
+        it('should return status 400 if any fields are missing', async () => {
+            const user = {
+                email: "ryan.jake@gmail.net",
+                password: ""
+            };
+
+            const response = await (chai.request(app).post('/users/login').send(user))
+            expect(response).to.have.status(400)
+            expect(response.text).to.equal(JSON.stringify({error: "Please specify all fields"}));
+        })
+
+        it('should return status 400 if email is incorrect', async () => {
+            const user = {
+                email: "ryan.jake@gmail.met",
+                password: "ryan4ever"
+            };
+
+            const originalUser = {
+                email: "ryan.jake@gmail.net",
+                firstName: "ryan",
+                lastName: "jake",
+                password: "ryan4ever"
+            };
+
+            await chai.request(app).post('/users/signup').send(originalUser)
+            const response = await (chai.request(app).post('/users/login').send(user))
+            expect(response).to.have.status(400)
+            expect(response.text).to.equal(JSON.stringify({error: "Invalid credentials"}));
+        })
+
+        it('should return status 400 if password is incorrect', async () => {
+            const user = {
+                email: "ryan.jake@gmail.net",
+                password: "Ryan4ever"
+            };
+
+            const originalUser = {
+                email: "ryan.jake@gmail.net",
+                firstName: "ryan",
+                lastName: "jake",
+                password: "ryan4ever"
+            };
+
+            await chai.request(app).post('/users/signup').send(originalUser)
+            const response = await (chai.request(app).post('/users/login').send(user))
+            expect(response).to.have.status(400)
+            expect(response.text).to.equal(JSON.stringify({error: "Invalid credentials"}));
+        })
+
+        it('should return status 200 with newly created tokens', async () => {
+            const user = {
+                email: "ryan.jake@gmail.net",
+                password: "ryan4ever"
+            };
+
+            const originalUser = {
+                email: "ryan.jake@gmail.net",
+                firstName: "ryan",
+                lastName: "jake",
+                password: "ryan4ever"
+            };
+
+            await chai.request(app).post('/users/signup').send(originalUser)
+            const response = await (chai.request(app).post('/users/login').send(user))
+            expect(response).to.have.status(200)
+            expect(response._body).to.have.property('token').to.be.a('string');
+            expect(response._body).to.have.property('refreshToken').to.be.a('string');
+        })
+    })
 })
