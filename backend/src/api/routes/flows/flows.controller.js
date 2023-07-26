@@ -2,7 +2,7 @@ const flowsModel = require('../../models/flows.model')
 
 const getAllFlows = async (req, res) => {
     const uid = req.user
-    const flows = await flowsModel.getFlowsByUid({uid})
+    const flows = await flowsModel.getFlowsByUid({ uid })
     res.status(200).json(flows)
 }
 
@@ -28,24 +28,30 @@ const createFlow = async (req, res) => {
     const { title } = data
 
     if (!title) {
-        return res.status(400).json({error: "Please specify a title"})
+        return res.status(400).json({ error: "Please specify a title" })
     }
 
-    const doesTitleExist = (await flowsModel.getTitleByUid({uid, title})).length !== 0
+    const doesTitleExist = (await flowsModel.getTitleByUid({ uid, title })).length !== 0
 
     if (doesTitleExist) {
-        return res.status(400).json({error: "You already have a project with the title"})
+        return res.status(400).json({ error: "You already have a project with the title" })
     }
 
-    const [ newFlow ] = await flowsModel.createFlow(data)
+    const [newFlow] = await flowsModel.createFlow(data)
 
     const fid = newFlow.fid
-    await flowsModel.assignFlowOwnership({uid, fid})
+    await flowsModel.assignFlowOwnership({ uid, fid })
 
     return res.status(201).json(newFlow)
 }
 
+const createDataset = async (req, res) => {
+    console.log(req.file)
+    res.status(200).json('object sent to bucket')
+}
+
 module.exports = {
     getAllFlows,
-    createFlow
+    createFlow,
+    createDataset
 }

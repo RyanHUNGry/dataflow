@@ -1,4 +1,5 @@
 require('dotenv').config()
+require('aws-sdk/lib/maintenance_mode_message').suppress = true // Suppress SDK migration warning
 
 const http = require('http')
 const app = require('./app')
