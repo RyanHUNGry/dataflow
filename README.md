@@ -9,14 +9,13 @@
 
 **dataflow** is a specialized issue tracker designed to streamline and enhance your data science and data analysis projects. The platform offers a unique approach to project management through the concept of **flows**, while also providing an array of additional features tailored to empower your data-related tasks. Whether you're a data scientist, analyst, or enthusiast, dataflow is here to optimize your workflow.
 
-Please note that the current development is focused on the backend, core infrastructure, and internal tooling. A frontend won't be released in the near future. As such, this repository will document application infrastructure, APIs, and other related concepts.
+Please consider that current development is focused on the backend, core infrastructure, and internal developer tooling. A frontend won't be released in the near future. As such, this repository will document application infrastructure, APIs, and other related concepts.
 
 ## Table Of Contents
 
 - [Installation](#installation)
-    - [Composer](#composer)
-    - [DDev or Colima](#ddev)
-    - [TER](#ter-extension)
+    - [NPM](#npm)
+    - [Starting a Server](#starting-a-server)
 - [TYPO3 setup](#typo3-setup)
     - [Database setup](#database-setup)
     - [Security](#security)
@@ -31,6 +30,49 @@ Please note that the current development is focused on the backend, core infrast
 - [Links](#links)
 
 ## Installation
+
+### Dependencies
+
+1. Clone the repository and install backend dependencies:
+
+```shell
+git clone https://github.com/RyanHUNGry/dataflow.git && cd ./dataflow/backend && npm install
+
+# install from root directory
+git clone https://github.com/RyanHUNGry/dataflow.git && cd ./dataflow && npm start --prefix backend
+```
+
+2. Create an environment variables file:
+```shell
+cd backend && touch.env
+```
+
+3. Fill out the following environment variables inside `.env`:
+```bash
+NODE_ENV=...
+
+PG_DEV_DATABASE=...
+PG_DEV_USERNAME=...
+PG_DEV_PASSWORD=...
+
+DEV_PORT=...
+
+DEV_JWT_SECRET=...
+
+AWS_PUBLIC_KEY:...
+AWS_SECRET_KEY:...
+```
+
+### Starting a Server
+1. Start a server on default `http://localhost:8000`:
+```shell
+npm start
+
+# run nodemon process for development
+npm run watch
+```
+
+2. Ping the API with a tool such as [Postman](https://www.google.com/search?q=postman&oq=Postman&aqs=chrome.0.0i433i512l2j69i64j0i433i512j0i512l3j5.1765j0j7&sourceid=chrome&ie=UTF-8)
 
 ## Application Infrastructure
 
