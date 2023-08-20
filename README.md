@@ -58,9 +58,11 @@ AWS_SECRET_KEY:...
 
 ### Starting a Server
 1. Start a server on default `http://localhost:8000`:
-```shell
+```bash
 npm start
+```
 
+```bash
 # run nodemon process for development
 npm run watch
 ```
@@ -72,7 +74,11 @@ npm run watch
 ### Local Architecture
 <img src="./static/local.png">
 
+### Production Architecture
+<img src="./static/production.png">
 
+### Testing Suite
+*dataflow* comes with full unit and integration test suites for its API.
 
 ## API
 
