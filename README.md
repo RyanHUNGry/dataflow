@@ -7,7 +7,7 @@
 
 ## Introduction
 
-**dataflow** is a specialized issue tracker designed to streamline and enhance your data science and data analysis projects. The platform offers a unique approach to project management through the concept of **flows**, while also providing an array of additional features tailored to empower your data-related tasks. Whether you're a data scientist, analyst, or enthusiast, dataflow is here to optimize your workflow.
+*dataflow* is a specialized issue tracker designed to streamline and enhance your data science and data analysis projects. The platform offers a unique approach to project management through the concept of *flows*, while also providing an array of additional features tailored to empower your data-related tasks. Whether you're a data scientist, analyst, or enthusiast, *dataflow* is here to optimize your workflow.
 
 Please consider that current development is focused on the backend, core infrastructure, and internal developer tooling. A frontend won't be released in the near future. As such, this repository will document application infrastructure, APIs, and other related concepts.
 
@@ -16,17 +16,8 @@ Please consider that current development is focused on the backend, core infrast
 - [Installation](#installation)
     - [NPM](#npm)
     - [Starting a Server](#starting-a-server)
-- [TYPO3 setup](#typo3-setup)
-    - [Database setup](#database-setup)
-    - [Security](#security)
-- [Page setup](#page-setup)
-    - [Download the Aimeos Page Tree t3d file](#download-the-aimeos-page-tree-t3d-file)
-    - [Go to the Import View](#go-to-the-import-view)
-    - [Upload the page tree file](#upload-the-page-tree-file)
-    - [Go to the import view](#go-to-the-import-view)
-    - [Import the page tree](#import-the-page-tree)
-    - [SEO-friendly URLs](#seo-friendly-urls)
-- [License](#license)
+- [Application Architecture](#application-architecture)
+    - [Local Architecture](#local-architecture)
 - [Links](#links)
 
 ## Installation
@@ -35,15 +26,17 @@ Please consider that current development is focused on the backend, core infrast
 
 1. Clone the repository and install backend dependencies:
 
-```shell
+```bash
 git clone https://github.com/RyanHUNGry/dataflow.git && cd ./dataflow/backend && npm install
+```
 
+```bash
 # install from root directory
 git clone https://github.com/RyanHUNGry/dataflow.git && cd ./dataflow && npm start --prefix backend
 ```
 
 2. Create an environment variables file:
-```shell
+```bash
 cd backend && touch.env
 ```
 
@@ -74,12 +67,16 @@ npm run watch
 
 2. Ping the API with a tool such as [Postman](https://www.google.com/search?q=postman&oq=Postman&aqs=chrome.0.0i433i512l2j69i64j0i433i512j0i512l3j5.1765j0j7&sourceid=chrome&ie=UTF-8)
 
-## Application Infrastructure
+## Application Architecture
+
+### Local Architecture
+<img src="./static/local.png">
+
+
 
 ## API
 
-## Changelog
 
-**Data Science Workflow Application**
-- Production application: [Docker Hub](https://hub.docker.com/repository/docker/fishy3legs/dataflow-api-image/general)
-- Production API: [http://54.215.249.98:8000/](http://54.215.249.98:8000/)
+## Links
+1. Production application: [Docker Hub](https://hub.docker.com/repository/docker/fishy3legs/dataflow-api-image/general)
+2. Production API: [http://54.215.249.98:8000/](http://54.215.249.98:8000/)
