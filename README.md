@@ -9,7 +9,7 @@
 
 *dataflow* is a specialized issue tracker designed to streamline and enhance your data science and data analysis projects. The platform offers a unique approach to project management through the concept of *flows*, while also providing an array of additional features tailored to empower your data-related tasks. Whether you're a data scientist, analyst, or enthusiast, *dataflow* is here to optimize your workflow.
 
-Please consider that current development is focused on the backend, core infrastructure, and internal developer tooling. A frontend won't be released in the near future. As such, this repository will document application infrastructure, APIs, and other related concepts.
+Please consider that current development is focused on the backend, core architecture, and internal developer tooling. A frontend won't be released in the near future. As such, this repository will document application architecture, APIs, and other related concepts.
 
 ## Table Of Contents
 
@@ -30,11 +30,6 @@ Please consider that current development is focused on the backend, core infrast
 git clone https://github.com/RyanHUNGry/dataflow.git && cd ./dataflow/backend && npm install
 ```
 
-```bash
-# install from root directory
-git clone https://github.com/RyanHUNGry/dataflow.git && cd ./dataflow && npm start --prefix backend
-```
-
 2. Create an environment variables file:
 ```bash
 cd backend && touch.env
@@ -42,11 +37,12 @@ cd backend && touch.env
 
 3. Fill out the following environment variables inside `.env`:
 ```bash
-NODE_ENV=...
+NODE_ENV=... # 
 
-PG_DEV_DATABASE=...
-PG_DEV_USERNAME=...
+PG_DEV_DATABASE=... # development database
+PG_DEV_USERNAME=... 
 PG_DEV_PASSWORD=...
+PG_DEV_HOST=...
 
 DEV_PORT=...
 
@@ -71,10 +67,16 @@ npm run watch
 
 ## Application Architecture
 
-### Local Architecture
+### AWS RDS
+*dataflow* uses AWS RDS PostgreSQL instances for data storage. There are three instances for development, testing, and production respectively. 
+
+### AWS S3
+*dataflow* uses AWS S3 buckets to store datasets related to a *flow*.
+
+### Local Architecture Diagram
 <img src="./static/local.png">
 
-### Production Architecture
+### Production Architecture Diagram
 <img src="./static/production.png">
 
 ### Testing Suite
