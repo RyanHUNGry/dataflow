@@ -1,13 +1,13 @@
-require('dotenv').config({ path: '../.env' })
+require('dotenv').config()
 
-// Database connection config
 module.exports = {
   development: {
     client: 'postgresql',
     connection: {
-      database: process.env.PG_DEV_DATABASE,
-      user: process.env.PG_DEV_USERNAME,
-      password: process.env.PG_DEV_PASSWORD
+      connectionString: process.env.PG_DEV_DATABASE_URI,
+      // Do not reject RDS SSL certificate as development application does have have its own SSL certificate
+      // Tools such as PSQL and PgAdmin have their own SSL certificate used to secure connection with RDS
+      ssl: { rejectUnauthorized: false }
     },
     pool: {
       min: 2,
@@ -16,9 +16,6 @@ module.exports = {
     migrations: {
       tableName: 'knex_migrations'
     },
-    seeds: {
-      directory: './seeds/dev'
-    }
   },
   test: {
     client: 'postgresql',
@@ -34,9 +31,6 @@ module.exports = {
     migrations: {
       tableName: 'knex_migrations'
     },
-    seeds: {
-      directory: './seeds/test' // No seeds in use currently, can use for more involved integration tests
-    }
   },
   production: {
     client: 'postgresql',

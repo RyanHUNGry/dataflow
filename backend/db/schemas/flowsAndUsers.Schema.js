@@ -1,5 +1,3 @@
-// Each user can have multiple flows
-// Each flow can have multiple owners
 const flowAndUser = table => {
     table.integer('uid')
     table.integer('fid')
