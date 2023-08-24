@@ -34,7 +34,7 @@
     "sinon": "^15.2.0"
   },
   "dependencies": {
-    "aws-sdk": "^2.1422.0",
+    "@aws-sdk/client-s3": "^3.398.0",
     "bcrypt": "^5.1.0",
     "chai-http": "^4.4.0",
     "crypto": "^1.0.1",

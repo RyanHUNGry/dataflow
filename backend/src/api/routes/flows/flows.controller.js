@@ -45,13 +45,7 @@ const createFlow = async (req, res) => {
     return res.status(201).json(newFlow)
 }
 
-const createDataset = async (req, res) => {
-    console.log(req.file)
-    res.status(200).json('object sent to bucket')
-}
-
 module.exports = {
     getAllFlows,
     createFlow,
-    createDataset
 }
