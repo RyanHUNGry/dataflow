@@ -16,7 +16,8 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3.6.0
 
-      - name: Install dependenciesgi
+      - name: Install dependencies
         run: npm i
 
-      - uses: reviewdog/action-eslint@v1
+      - name: Run linting script with eslint
+        run: npm run lint
