@@ -29,7 +29,8 @@
   "devDependencies": {
     "@faker-js/faker": "^8.0.2",
     "chai": "^4.3.7",
-    "eslint": "^8.47.0",
+    "eslint": "^8.48.0",
+    "eslint-config-google": "^0.14.0",
     "mocha": "^10.2.0",
     "nodemon": "^2.0.22",
     "sinon": "^15.2.0"
