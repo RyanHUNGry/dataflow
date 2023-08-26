@@ -1,4 +1,4 @@
-name: lint
+name: lint the codebase
 run-name: ${{ github.actor }} activated linting
 
 on:
