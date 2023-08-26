@@ -1,33 +1,33 @@
-const { db } = require('../../../db/db');
+const {db} = require('../../../db/db');
 
-const createRefreshToken = async ({ uid, refreshToken }) => {
-    const newRefreshToken = await db('refresh_tokens')
-        .insert({ uid, refresh_token: refreshToken })
-        .returning('*');
+const createRefreshToken = async ({uid, refreshToken}) => {
+  const newRefreshToken = await db('refresh_tokens')
+      .insert({uid, refresh_token: refreshToken})
+      .returning('*');
 
-    return newRefreshToken;
+  return newRefreshToken;
 };
 
-const updateRefreshToken = async ({ uid, refreshToken }) => {
-    const updatedRefreshToken = await db('refresh_tokens')
-        .where({ uid })
-        .update('refresh_token', refreshToken)
-        .returning('*');
+const updateRefreshToken = async ({uid, refreshToken}) => {
+  const updatedRefreshToken = await db('refresh_tokens')
+      .where({uid})
+      .update('refresh_token', refreshToken)
+      .returning('*');
 
-    return updatedRefreshToken;
+  return updatedRefreshToken;
 };
 
 const getRefreshTokenByUid = async (uid) => {
-    return await db('refresh_tokens').where({ uid }).select('*');
+  return await db('refresh_tokens').where({uid}).select('*');
 };
 
 const deleteRefreshTokenByUid = async (uid) => {
-    return await db('refresh_tokens').where({ uid }).del().returning("*")
-}
+  return await db('refresh_tokens').where({uid}).del().returning('*');
+};
 
 module.exports = {
-    createRefreshToken,
-    updateRefreshToken,
-    getRefreshTokenByUid,
-    deleteRefreshTokenByUid
+  createRefreshToken,
+  updateRefreshToken,
+  getRefreshTokenByUid,
+  deleteRefreshTokenByUid,
 };

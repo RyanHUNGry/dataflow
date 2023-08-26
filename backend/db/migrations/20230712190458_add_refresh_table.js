@@ -1,11 +1,11 @@
-const refreshTokenSchema = require("../schemas/tokens.schema");
+const refreshTokenSchema = require('../schemas/tokens.schema');
 
 /**
  * @param { import("knex").Knex } knex
  * @returns { Promise<void> }
  */
 exports.up = function(knex) {
-    return knex.schema.createTable('refresh_tokens', refreshTokenSchema)
+  return knex.schema.createTable('refresh_tokens', refreshTokenSchema);
 };
 
 /**
@@ -13,5 +13,5 @@ exports.up = function(knex) {
  * @returns { Promise<void> }
  */
 exports.down = function(knex) {
-    return knex.schema.dropTable('refresh_tokens', refreshTokenSchema)
+  return knex.schema.dropTable('refresh_tokens', refreshTokenSchema);
 };

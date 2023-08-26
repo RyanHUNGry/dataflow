@@ -22,5 +22,8 @@ module.exports = {
     'ecmaVersion': 'latest',
   },
   'rules': {
+    'valid-jsdoc': 0,
+    'camelcase': 1,
+    'max-len': 0,
   },
 };

@@ -4,6 +4,7 @@
   "description": "Dataflow REST API",
   "main": "server.js",
   "scripts": {
+    "lint": "npx eslint .",
     "start": "node ./src/server.js",
     "watch": "nodemon ./src/server.js",
     "unit-tests": "mocha ./tests/unit/*.test.js --exit",
