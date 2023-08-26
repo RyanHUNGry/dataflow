@@ -8,15 +8,16 @@ on:
 jobs:
   lint:
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend # Only applies to run steps
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3.6.0
 
       - name: Install dependencies
-        run: | 
-          cd ./backend
-          npm i
+        run: npm i
 
       - name: Run eslint
         run: npx eslint .
