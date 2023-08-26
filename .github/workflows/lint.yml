@@ -1,1 +1,18 @@
 name: lint
+run-name: ${{ github.actor }} activated linting
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3.6.0
+
+      - name: Print hello world
+        run: echo hello world
+            
