@@ -1,4 +1,4 @@
-name: lint the codebase
+name: lint dataflow
 run-name: ${{ github.actor }} activated linting
 
 on:
@@ -13,6 +13,10 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3.6.0
 
-      - name: Print hello world
-        run: echo hello world
-            
+      - name: Install dependencies
+        run: | 
+          cd ./backend
+          npm i
+
+      - name: Run eslint
+        run: npx eslint .
