@@ -3,7 +3,7 @@ run-name: ${{ github.actor }} activated linting
 
 on:
   push:
-    branches: [ master ]
+    branches: [ main ]
 
 jobs:
   lint:
