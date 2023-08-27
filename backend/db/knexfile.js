@@ -1,4 +1,6 @@
 require('dotenv').config();
+const fs = require('fs')
+const path = require('path')
 
 module.exports = {
   development: {
@@ -9,7 +11,10 @@ module.exports = {
       // application does have have its own SSL certificate.
       // Tools such as PSQL and PgAdmin have their own SSL
       // certificate used to secure connection with RDS.
-      ssl: {rejectUnauthorized: false},
+      ssl: {
+        rejectUnauthorized: true,
+        ca: fs.readFileSync(path.join(__dirname, '../certificates/us-west-1-bundle.pem'))
+      },
     },
     pool: {
       min: 2,
