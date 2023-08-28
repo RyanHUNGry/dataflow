@@ -6,11 +6,11 @@ const flowsModel = require('../api/models/flows.model');
 
 const checkFlowValidityMiddleware = async (req, res, next) => {
   const uid = req.user;
-  const data = {...req.query}
-  const {fid} = data
-  
+  const data = {...req.query};
+  const {fid} = data;
+
   if (!fid) {
-    return res.status(400).json({error: 'Please specify an fid'})
+    return res.status(400).json({error: 'Please specify an fid'});
   }
 
   // Check if flow exists and user has ownership of that flow
@@ -19,14 +19,14 @@ const checkFlowValidityMiddleware = async (req, res, next) => {
     return res.status(400).json({error: 'Invalid flow'});
   }
 
-  const doesFlowHaveDataset = (await flowsModel.getS3BucketKeyByFid({fid}))
+  const doesFlowHaveDataset = (await flowsModel.getS3BucketKeyByFid({fid}));
 
   if (doesFlowHaveDataset) {
-    return res.status(400).json({error: 'Flow already has a dataset'})
+    return res.status(400).json({error: 'Flow already has a dataset'});
   }
-  
-  next()
-}
+
+  next();
+};
 
 const upload = multer({
   storage: multerS3({
@@ -43,5 +43,5 @@ const upload = multer({
 
 module.exports = {
   checkFlowValidityMiddleware,
-  upload
+  upload,
 };

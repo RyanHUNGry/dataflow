@@ -53,7 +53,7 @@ const createFlow = async (req, res) => {
  * This endpoint uploads a dataset into S3 and attaches the key to an existing flow.
  * Each flow can only be associated with one dataset.
  *
- * @mutlipart 
+ * @mutlipart
  *  - dataset
  * @query {object} req.query - flow ID
  *  - fid
@@ -65,11 +65,11 @@ const createFlow = async (req, res) => {
  * @throws {400} - If flow already contains a dataset.
  */
 const createDataset = async (req, res) => {
-  const {key} = req.file
-  const {fid} = req.query
+  const {key} = req.file;
+  const {fid} = req.query;
 
-  const data = await flowsModel.assignS3BucketKeyByFid({fid, key})
-  return res.status(201).json(data)
+  const data = await flowsModel.assignS3BucketKeyByFid({fid, key});
+  return res.status(201).json(data);
 };
 
 module.exports = {

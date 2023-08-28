@@ -35,14 +35,14 @@ const getTitleByUid = async ({uid, title}) => {
 };
 
 // Gets bucket key by flow ID
-const getS3BucketKeyByFid = async({fid}) => {
-  return (await db('flows').where({fid}).select('dataset_s3_key'))[0].dataset_s3_key
-}
+const getS3BucketKeyByFid = async ({fid}) => {
+  return (await db('flows').where({fid}).select('dataset_s3_key'))[0].dataset_s3_key;
+};
 
 // Assigns bucket key to flow
-const assignS3BucketKeyByFid = async({fid, key}) => {
-  return await db('flows').where({fid}).update({'dataset_s3_key': key}, ['dataset_s3_key'])
-}
+const assignS3BucketKeyByFid = async ({fid, key}) => {
+  return await db('flows').where({fid}).update({'dataset_s3_key': key}, ['dataset_s3_key']);
+};
 
 module.exports = {
   createFlow,
@@ -51,5 +51,5 @@ module.exports = {
   getFlowsByUid,
   checkFlowValidity,
   getS3BucketKeyByFid,
-  assignS3BucketKeyByFid
+  assignS3BucketKeyByFid,
 };
