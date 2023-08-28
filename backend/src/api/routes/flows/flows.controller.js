@@ -12,7 +12,7 @@ const getAllFlows = async (req, res) => {
  * Creates a new flow for user.
  *
  * This endpoint creates a new flow by inserting entries into both the flow and
- * flow-to-user assignment tables. The flow is initialized with no tasks.
+ * flow-to-user assignment tables. The flow is initialized with no tasks and no dataset.
  *
  * @params {object} req.body - flow information
  *  - title, description
@@ -45,8 +45,31 @@ const createFlow = async (req, res) => {
   return res.status(201).json(newFlow);
 };
 
+/**
+ * @private
+ * POST /flows/dataset
+ * Stores dataset in S3 and attaches dataset key to an existing flow.
+ *
+ * This endpoint uploads a dataset into S3 and attaches the key to an existing flow.
+ * Each flow can only be associated with one dataset.
+ *
+ * @mutlipart 
+ *  - dataset
+ * @query {object} req.query - flow ID
+ *  - fid
+ *
+ * @return {object} The new S3 object key.
+ *
+ * @throws {400} - If fields are missing.
+ * @throws {400} - If flow does not exist or user does not have ownership.
+ * @throws {400} - If flow already contains a dataset.
+ */
 const createDataset = async (req, res) => {
+  const {key} = req.file
+  const {fid} = req.query
 
+  const data = await flowsModel.assignS3BucketKeyByFid({fid, key})
+  return res.status(201).json(data)
 };
 
 module.exports = {
