@@ -1,3 +1,5 @@
 /node_modules
 .env
 /util/s3_data
+
+*.zip
