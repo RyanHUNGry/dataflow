@@ -14,11 +14,5 @@
   "bugs": {
     "url": "https://github.com/RyanHUNGry/dataflow/issues"
   },
-  "homepage": "https://github.com/RyanHUNGry/dataflow#readme",
-  "devDependencies": {
-    "concurrently": "^8.2.0"
-  },
-  "dependencies": {
-    "start": "^5.1.0"
-  }
+  "homepage": "https://github.com/RyanHUNGry/dataflow#readme"
 }
