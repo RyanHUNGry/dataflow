@@ -5,3 +5,5 @@
 *.zip
 
 deployment_package/
+
+.DS_Store
