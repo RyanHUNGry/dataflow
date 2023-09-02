@@ -10,7 +10,9 @@ module.exports = {
     client: 'postgresql',
     connection: {
       connectionString: process.env.PG_DEV_DATABASE_URI,
-      // AWS RDS requires SSL connection
+      // AWS RDS requires SSL connection if you are using it from a local development environment
+      // which means the AWS ssl certificate is required to say you trust them
+      // rejectUnauthorized is true by default but specifying is more explicit
       ssl: {
         rejectUnauthorized: true,
         ca: fs.readFileSync(path.join(__dirname, '../certificates/us-west-1-bundle.pem')),

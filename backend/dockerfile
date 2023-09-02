@@ -2,6 +2,7 @@
 
 FROM node:18
 
+# Working directory for the container
 WORKDIR /dataflow/backend
 
 COPY . .
