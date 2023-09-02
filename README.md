@@ -82,6 +82,9 @@ npm run watch
 ### Testing Suite
 *dataflow* comes with full unit and integration test suites for its API.
 
+### Containerization
+*dataflow* depends on itself or external cloud services via AWS. There isn't an additional service that needs to be installed on a host. This means that containerizing a working version of *dataflow* only consists of bundling the application itself with the correct environment variables. Since the application itself is stateless due to cloud, there is no need for volumes either.
+
 ## API
 
 
