@@ -68,8 +68,9 @@ const createDataset = async (req, res) => {
   const {key} = req.file;
   const {fid} = req.query;
 
-  const data = await flowsModel.assignS3BucketKeyByFid({fid, key});
-  return res.status(201).json(data);
+  const s3Data = await flowsModel.assignS3BucketKeyByFid({fid, key});
+
+  return res.status(201).json(s3Data);
 };
 
 module.exports = {

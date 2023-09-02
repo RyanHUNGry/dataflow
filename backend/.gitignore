@@ -3,3 +3,5 @@
 /util/s3_data
 
 *.zip
+
+deployment_package/
