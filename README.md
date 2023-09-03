@@ -89,7 +89,7 @@ The *dataflow* API is powered by Node.js and Express.js. Passport.js is used for
 The *dataflow* API comes with full unit and integration test suites. These tests should be run under test NODE_ENV so that proper connection to external services are used. The tests themselves depend on a Mocha, Chai, and Sinon stack.
 
 ### Containerization
-Much like other REST APIs, the *dataflow* API is stateless and heavily serverless. Thus, containerization of the application only depends on installing the application itself, and connecting to services with proper environment and credentials.
+Much like other REST APIs, the *dataflow* API is stateless and quite serverless. Thus, containerization of the application only depends on installing the application itself, and connecting to services with proper environment variables and credentials.
 
 ### CI/CD Pipeline
 WIP

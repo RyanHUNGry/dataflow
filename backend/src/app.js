@@ -22,7 +22,7 @@ app.use('/flows', flowsRouter);
 app.use('/users', usersRouter);
 
 app.get('/', (req, res) => {
-  res.status(200).send('HOME PAGE');
+  res.status(200).send('Welcome to dataflow. Seeing this page means the API is up and running :)');
 });
 
 module.exports = app;

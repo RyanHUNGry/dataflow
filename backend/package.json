@@ -4,11 +4,11 @@
   "description": "Dataflow REST API",
   "main": "server.js",
   "scripts": {
-    "lint": "npx eslint .",
+    "lint": "npx eslint . --fix",
     "start": "node ./src/server.js",
     "watch": "nodemon ./src/server.js",
     "unit-tests": "mocha ./tests/unit/*.test.js --exit",
-    "integration-tests": "SET NODE_ENV=test&& mocha ./tests/integration/*.test.js --exit",
+    "integration-tests": "NODE_ENV=test mocha ./tests/integration/*.test.js --timeout 10000 --exit",
     "migrate": "npx knex migrate:latest --knexfile ./db/knexfile.js",
     "migrate-test": "npx knex migrate:latest --knexfile ./db/knexfile.js --env test",
     "rollback-test": "npx knex migrate:rollback --all --knexfile ./db/knexfile.js --env test",

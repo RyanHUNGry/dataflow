@@ -4,8 +4,11 @@ FROM node:18
 # Working directory for the container
 WORKDIR /dataflow/backend
 
+# Descriptive purposes only and non-functional
+EXPOSE 8000
+
 COPY . .
 
 RUN npm install
 
-CMD [ "/bin/bash" ]
+CMD [ "npm", "start" ]

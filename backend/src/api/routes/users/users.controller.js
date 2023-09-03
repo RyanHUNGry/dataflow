@@ -8,9 +8,10 @@ const refreshTokensModel = require('../../models/refreshTokens.model');
  * POST /users/signup
  * Register a user.
  *
- * This endpoint registers a user into the database with password encryption.
+ * This endpoint registers a user into the database with password encryption. It also logs the user in automatically
+ * by performing the same operations for login and manipulating the refresh token table.
  *
- * @param {object} req.body - user information.
+ * @param {object} req.body - user information
  *  - email, firstName, lastName, password
  *
  * @return {object} The newly created user.
@@ -40,7 +41,33 @@ const signupUser = async (req, res) => {
 
   data.password = hash;
   const newUser = await usersModel.createUser(data);
-  return res.status(201).json(newUser);
+
+  // Generate token and refresh token
+  const token = jwt.sign(
+      {uid: newUser.uid},
+      process.env.JWT_SECRET,
+      {
+        expiresIn: '1h',
+      },
+  );
+
+  const refreshToken = jwt.sign(
+      {uid: newUser.uid},
+      process.env.JWT_SECRET,
+      {
+        expiresIn: '7d',
+      },
+  );
+
+  // Add refresh token to database for the first time since new user does not have a refresh token
+  const refreshTokenData = {uid: newUser.uid, refreshToken};
+  await refreshTokensModel.createRefreshToken(refreshTokenData);
+
+  return res.status(201).json({
+    ...newUser,
+    token,
+    refreshToken
+  });
 };
 
 /**
@@ -82,7 +109,7 @@ const loginUser = async (req, res) => {
   // Generate token and refresh token
   const token = jwt.sign(
       {uid: user.uid},
-      process.env.DEV_JWT_SECRET,
+      process.env.JWT_SECRET,
       {
         expiresIn: '1h',
       },
@@ -90,7 +117,7 @@ const loginUser = async (req, res) => {
 
   const refreshToken = jwt.sign(
       {uid: user.uid},
-      process.env.DEV_JWT_SECRET,
+      process.env.JWT_SECRET,
       {
         expiresIn: '7d',
       },
@@ -139,7 +166,7 @@ const refreshAccessToken = async (req, res) => {
   // Handle case where token is some random string or expired
   let uid;
   try {
-    const decoded = jwt.verify(refreshToken, process.env.DEV_JWT_SECRET);
+    const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
     uid = decoded.uid;
   } catch (err) {
     return res.status(400).json({error: 'Invalid or expired refresh token'});
@@ -154,7 +181,7 @@ const refreshAccessToken = async (req, res) => {
 
   const token = jwt.sign(
       {uid},
-      process.env.DEV_JWT_SECRET,
+      process.env.JWT_SECRET,
       {
         expiresIn: '1h',
       },
@@ -191,7 +218,7 @@ const logoutUser = async (req, res) => {
   // Handle case where token is some random string or expired
   let uid;
   try {
-    const decoded = jwt.verify(refreshToken, process.env.DEV_JWT_SECRET);
+    const decoded = jwt.verify(refreshToken, process.env.JWT_SECRET);
     uid = decoded.uid;
   } catch (err) {
     return res.status(400).json({error: 'Invalid or expired refresh token'});

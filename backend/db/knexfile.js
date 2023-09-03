@@ -9,7 +9,7 @@ module.exports = {
   development: {
     client: 'postgresql',
     connection: {
-      connectionString: process.env.PG_DEV_DATABASE_URI,
+      connectionString: process.env.AWS_RDS_DEV,
       // AWS RDS requires SSL connection if you are using it from a local development environment
       // which means the AWS ssl certificate is required to say you trust them
       // rejectUnauthorized is true by default but specifying is more explicit
@@ -29,9 +29,14 @@ module.exports = {
   test: {
     client: 'postgresql',
     connection: {
-      database: process.env.PG_TEST_DATABASE,
-      user: process.env.PG_TEST_USERNAME,
-      password: process.env.PG_TEST_PASSWORD,
+      connectionString: process.env.AWS_RDS_TEST,
+      // AWS RDS requires SSL connection if you are using it from a local development environment
+      // which means the AWS ssl certificate is required to say you trust them
+      // rejectUnauthorized is true by default but specifying is more explicit
+      ssl: {
+        rejectUnauthorized: true,
+        ca: fs.readFileSync(path.join(__dirname, '../certificates/us-west-1-bundle.pem')),
+      },
     },
     pool: {
       min: 2,
@@ -44,10 +49,14 @@ module.exports = {
   production: {
     client: 'postgresql',
     connection: {
-      database: process.env.PG_PROD_DATABASE,
-      user: process.env.PG_PROD_USERNAME,
-      password: process.env.PG_PROD_PASSWORD,
-      host: process.env.PG_PROD_HOST,
+      connectionString: process.env.AWS_RDS_PROD,
+      // AWS RDS requires SSL connection if you are using it from a local development environment
+      // which means the AWS ssl certificate is required to say you trust them
+      // rejectUnauthorized is true by default but specifying is more explicit
+      ssl: {
+        rejectUnauthorized: true,
+        ca: fs.readFileSync(path.join(__dirname, '../certificates/us-west-1-bundle.pem')),
+      },
     },
     pool: {
       min: 2,

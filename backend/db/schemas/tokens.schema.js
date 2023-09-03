@@ -1,5 +1,5 @@
 const refreshTokenSchema = (table) => {
-  table.string('uid').notNullable();
+  table.integer('uid').notNullable().unique();
   table.increments('rtid');
   table.string('refresh_token').notNullable();
   table.timestamps(true, true);
