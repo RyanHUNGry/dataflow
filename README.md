@@ -9,7 +9,7 @@
 
 *dataflow* is a specialized issue tracker designed to streamline and enhance your data science and data analysis projects. The platform offers a unique approach to project management through the concept of *flows*, while also providing an array of additional features tailored to empower your data-related tasks. Whether you're a data scientist, analyst, or enthusiast, *dataflow* is here to optimize your workflow.
 
-Please consider that current development is focused on the backend, core architecture, and internal developer tooling. A frontend won't be released in the near future. As such, this repository will document application architecture, APIs, and other related concepts.
+Please consider that current development is focused on the backend, core architecture, and internal developer tooling. A frontend won't be released in the near future. As such, this repository will document application architecture, APIs, and other non-userfacing concepts.
 
 ## Table Of Contents
 
@@ -67,26 +67,35 @@ npm run watch
 
 ## Application Architecture
 
+### Environments
+*dataflow* has a traditional three environment setup using environment variables to dictate development, test, and production settings.
+
 ### AWS RDS
-*dataflow* uses AWS RDS PostgreSQL instances for data storage. There are three instances for development, testing, and production respectively. 
+*dataflow* uses AWS RDS PostgreSQL instances for data storage. There are three databases inside the instance for development, test, and production. Connection to *dataflow* is facilitated via PostgreSQL connection protocol with SSL encryption.
 
 ### AWS S3
-*dataflow* uses AWS S3 buckets to store datasets related to a *flow*.
+*dataflow* uses AWS S3 buckets to store datasets related to a *flow* and also summary statistics related to each dataset. There are three folders within each bucket for development, test, and production.
+
+### AWS Lambda
+To compute summary statistics of datasets uploaded to S3, AWS Lambda runs a Python script utilizing Pandas to compute and then output to a second bucket. The environment is inferred by Lambda using the object folder prefix.
+
+### *dataflow* API
+The *dataflow* API is powered by Node.js and Express.js. Passport.js is used for authentication middleware with JWT tokens. Knex.js is used as a query builder to query against the AWS RDS PostgreSQL databases. The NODE_ENV environment variable can be used to configure how the API connects with external services. This API will listen on port 8000.
+
+### Testing Suite for *dataflow* API
+The *dataflow* API comes with full unit and integration test suites. These tests should be run under test NODE_ENV so that proper connection to external services are used. The tests themselves depend on a Mocha, Chai, and Sinon stack.
+
+### Containerization
+Much like other REST APIs, the *dataflow* API is stateless and heavily serverless. Thus, containerization of the application only depends on installing the application itself, and connecting to services with proper environment and credentials.
+
+### CI/CD Pipeline
+WIP
 
 ### Local Architecture Diagram
 <img src="./static/local.png">
 
 ### Production Architecture Diagram
 <img src="./static/production.png">
-
-### Testing Suite
-*dataflow* comes with full unit and integration test suites for its API.
-
-### Containerization
-*dataflow* depends on itself or external cloud services via AWS. There isn't an additional service that needs to be installed on a host. This means that containerizing a working version of *dataflow* only consists of bundling the application itself with the correct environment variables. Since the application itself is stateless due to cloud, there is no need for volumes either.
-
-## API
-
 
 ## Links
 1. Production application: [Docker Hub](https://hub.docker.com/repository/docker/fishy3legs/dataflow-api-image/general)
