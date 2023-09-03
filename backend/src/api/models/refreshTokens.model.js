@@ -18,7 +18,7 @@ const updateRefreshToken = async ({uid, refreshToken}) => {
 };
 
 const getRefreshTokenByUid = async (uid) => {
-  const [refreshToken] = await db('refresh_tokens').where({uid}).select('*')
+  const [refreshToken] = await db('refresh_tokens').where({uid}).select('*');
   return refreshToken;
 };
 

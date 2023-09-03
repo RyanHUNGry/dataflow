@@ -55,7 +55,7 @@ describe('Users controllers', () => {
       await chai.request(app).post('/users/signup').send(user);
 
       const response = await chai.request(app).post('/users/signup').send(user);
-      
+
       expect(response).to.have.status(400);
       expect(response.text).to.equal(JSON.stringify({error: 'Email already exists'}));
     });
@@ -83,23 +83,23 @@ describe('Users controllers', () => {
       expect(response._body).to.have.property('refreshToken').to.be.a('string');
 
       // This section queries the user table to ensure correctness
-      const userData = await usersModel.getUserByEmail(user.email)
+      const userData = await usersModel.getUserByEmail(user.email);
 
       expect(userData).to.have.property('uid').to.be.equal(response._body.uid);
       expect(userData).to.have.property('email').to.equal(response._body.email);
       expect(userData).to.have.property('first_name').to.equal(response._body.first_name);
       expect(userData).to.have.property('last_name').to.equal(response._body.last_name);
-      expect(userData).to.have.property('created_at') // Difficult to infer type
-      expect(userData).to.have.property('updated_at') // Difficult to infer type
+      expect(userData).to.have.property('created_at'); // Difficult to infer type
+      expect(userData).to.have.property('updated_at'); // Difficult to infer type
       expect(userData).to.have.property('password').to.be.equal(response._body.password);
 
       // This section queries the refresh table to ensure correctness
-      const refreshTokenData = await refreshTokensModel.getRefreshTokenByUid(response._body.uid)
+      const refreshTokenData = await refreshTokensModel.getRefreshTokenByUid(response._body.uid);
 
-      expect(refreshTokenData).to.have.property('uid').to.be.equal(response._body.uid)
-      expect(refreshTokenData).to.have.property('rtid').to.be.a('number')
-      expect(refreshTokenData).to.have.property('created_at') // Difficult to infer type
-      expect(refreshTokenData).to.have.property('updated_at') // Difficult to infer type
+      expect(refreshTokenData).to.have.property('uid').to.be.equal(response._body.uid);
+      expect(refreshTokenData).to.have.property('rtid').to.be.a('number');
+      expect(refreshTokenData).to.have.property('created_at'); // Difficult to infer type
+      expect(refreshTokenData).to.have.property('updated_at'); // Difficult to infer type
       expect(refreshTokenData).to.have.property('refresh_token').to.be.equal(response._body.refreshToken);
     });
   });

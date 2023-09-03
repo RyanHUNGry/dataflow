@@ -66,7 +66,7 @@ const signupUser = async (req, res) => {
   return res.status(201).json({
     ...newUser,
     token,
-    refreshToken
+    refreshToken,
   });
 };
 
