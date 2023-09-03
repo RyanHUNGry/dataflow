@@ -1,5 +1,4 @@
 # This creates a containerized API for deployment
-
 FROM node:18
 
 # Working directory for the container
