@@ -9,7 +9,10 @@
 
 *dataflow* is a specialized issue tracker designed to streamline and enhance your data science and data analysis projects. The platform offers a unique approach to project management through the concept of *flows*, while also providing an array of additional features tailored to empower your data-related tasks. Whether you're a data scientist, analyst, or enthusiast, *dataflow* is here to optimize your workflow.
 
-Please consider that current development is focused on the backend, core architecture, and internal developer tooling. A frontend won't be released in the near future. As such, this repository will document application architecture, APIs, and other non-userfacing concepts.
+Please consider that current development is focused on the backend, core 
+architecture, and internal developer tooling. This means a frontend won't 
+be 
+released in the near future. As such, this repository will document application architecture, APIs, and other non-userfacing concepts.
 
 ## Table Of Contents
 
