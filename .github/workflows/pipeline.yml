@@ -63,3 +63,10 @@ jobs:
 
     - name: Authenticate into docker hub
       run: docker login --username fishy3legs --password ${{ secrets.DOCKER_HUB_PASSWORD }}
+
+    - name: Push image into docker hub container registry
+      run: docker push docker.io/fishy3legs/dataflow-api:1.0
+
+  # After building, SSH into EC2 instance, delete the containerized application running in there and replace it with container of the new image by pulling
+  deploy:
+    needs: build
