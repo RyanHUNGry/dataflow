@@ -68,5 +68,5 @@ jobs:
       run: docker push docker.io/fishy3legs/dataflow-api:1.0
 
   # After building, SSH into EC2 instance, delete the containerized application running in there and replace it with container of the new image by pulling
-  deploy:
-    needs: build
+  # deploy:
+  #   needs: build
