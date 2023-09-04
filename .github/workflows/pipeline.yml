@@ -1,0 +1,42 @@
+name: lint, test, build, and deploy containerized dataflow API to ec2
+run-name: ${{ github.actor }} ci/cd pipeline
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend # Only applies to run steps
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3.6.0
+
+      - name: Install dependencies
+        run: npm i
+
+      - name: Run linting script with eslint
+        run: npm run lint
+
+  # After linting, create application container for testing and deploy
+  build-test-deploy:
+    needs: lint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend # Only applies to run steps
+
+    steps:
+    - name: Create image
+      run: docker build -t fishy3legs/dataflow-api:1.0 .
+
+    - name: Tag image
+      run: docker tag fishy3legs/dataflow-api:1.0 docker.io/fishy3legs/dataflow-api:1.0
+
+    - name: Start container
+      run: docker images
+
