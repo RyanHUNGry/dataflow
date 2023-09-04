@@ -39,7 +39,7 @@ jobs:
       run: docker build -t docker.io/fishy3legs/dataflow-api:1.0 .
 
     - name: Start container with proper test environment variables
-      run: docker run -d --name test-container --env ${{ secrets.AWS_PUBLIC_KEY }} --env ${{ secrets.AWS_SECRET_KEY }} --env ${{ secrets.AWS_RDS_TEST }} --env ${{ secrets.JWT_SECRET }} docker.io/fishy3legs/dataflow-api:1.0
+      run: docker run -d --name test-container -e AWS_PUBLIC_KEY=${{ secrets.AWS_PUBLIC_KEY }} - AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }} -e AWS_RDS_TEST=${{ secrets.AWS_RDS_TEST }} -e JWT_SECRET=${{ secrets.JWT_SECRET }} docker.io/fishy3legs/dataflow-api:1.0
 
     - name: Run tests with application inside test container
       run: docker exec test-container npm run integration-tests
