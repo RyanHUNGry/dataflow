@@ -35,11 +35,11 @@ jobs:
       uses: actions/checkout@v3.6.0
 
     - name: Create image
-      run: docker build -t fishy3legs/dataflow-api:1.0 .
+      run: docker build -t docker.io/fishy3legs/dataflow-api:1.0 .
 
-    - name: Tag image
-      run: docker tag fishy3legs/dataflow-api:1.0 docker.io/fishy3legs/dataflow-api:1.0
+    - name: Start container with proper test environment variables
+      run: docker run -d -name test-container docker.io/fishy3legs/dataflow-api:1.0
 
-    - name: Start container
-      run: docker images
+    - name: Run tests with application inside test container
+      run: docker exec test-container npm run integration-tests
 
