@@ -39,8 +39,27 @@ jobs:
       run: docker build -t docker.io/fishy3legs/dataflow-api:1.0 .
 
     - name: Start container with proper test environment variables
+      # For the NODE_ENV, you can use either test or development. You just need a value because container automatically boots with npm start to run the API
       run: docker run -d --name test-container -e NODE_ENV=test -e AWS_PUBLIC_KEY=${{ secrets.AWS_PUBLIC_KEY }} -e AWS_SECRET_KEY=${{ secrets.AWS_SECRET_KEY }} -e AWS_RDS_TEST=${{ secrets.AWS_RDS_TEST }} -e JWT_SECRET=${{ secrets.JWT_SECRET }} docker.io/fishy3legs/dataflow-api:1.0
 
     - name: Run tests with application inside test container
+      # There is no need to stop the server because the integration tests are separate from the server.js entryponit code
       run: docker exec test-container npm run integration-tests
+  
+  # After testing, containerize application, and upload that image to dockerhub
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend # Only applies to run steps
 
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3.6.0
+
+    - name: Create image
+      run: docker build -t docker.io/fishy3legs/dataflow-api:1.0 .
+
+    - name: Authenticate into docker hub
+      run: docker login --username fishy3legs --password ${{ secrets.DOCKER_HUB_PASSWORD }}
