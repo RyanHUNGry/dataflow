@@ -89,7 +89,7 @@ const signupUser = async (req, res) => {
 const loginUser = async (req, res) => {
   const data = {...req.body};
   const {email, password} = data;
-
+  
   // Validate form fields
   if (!email || !password) {
     return res.status(400).json({error: 'Please specify all fields'});
@@ -124,7 +124,7 @@ const loginUser = async (req, res) => {
   );
 
   // Add refresh token to database if user does not have refresh token or update existing refresh token
-  const doesRefreshTokenExist = (await refreshTokensModel.getRefreshTokenByUid(user.uid)).length !== 0;
+  const doesRefreshTokenExist = await refreshTokensModel.getRefreshTokenByUid(user.uid);
   const refreshTokenData = {uid: user.uid, refreshToken};
 
   if (!doesRefreshTokenExist) {
@@ -173,10 +173,15 @@ const refreshAccessToken = async (req, res) => {
   }
 
   // Handle case where token has been revoked - deleted from db - even though it technically still has not expired
-  const [existingRefreshToken] = await refreshTokensModel.getRefreshTokenByUid(uid);
+  const doesRefreshTokenExist = await refreshTokensModel.getRefreshTokenByUid(uid);
 
-  if (!existingRefreshToken) {
+  if (!doesRefreshTokenExist) {
     return res.status(400).json({error: 'Revoked refresh token'});
+  }
+
+  // Handle case where token has been overwritten - newer refersh token has been added - even though it technically still has not expired
+  if (doesRefreshTokenExist !== refreshToken) {
+    return res.status(400).json({error: 'Overwritten refresh token'})
   }
 
   const token = jwt.sign(
