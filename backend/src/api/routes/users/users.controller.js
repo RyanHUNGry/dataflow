@@ -89,7 +89,7 @@ const signupUser = async (req, res) => {
 const loginUser = async (req, res) => {
   const data = {...req.body};
   const {email, password} = data;
-  
+
   // Validate form fields
   if (!email || !password) {
     return res.status(400).json({error: 'Please specify all fields'});
@@ -181,7 +181,7 @@ const refreshAccessToken = async (req, res) => {
 
   // Handle case where token has been overwritten - newer refersh token has been added - even though it technically still has not expired
   if (doesRefreshTokenExist !== refreshToken) {
-    return res.status(400).json({error: 'Overwritten refresh token'})
+    return res.status(400).json({error: 'Overwritten refresh token'});
   }
 
   const token = jwt.sign(

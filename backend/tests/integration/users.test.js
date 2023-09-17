@@ -114,7 +114,7 @@ describe('Users controllers', () => {
       };
 
       const response = await (chai.request(app).post('/users/login').send(user));
-      
+
       expect(response).to.have.status(400);
       expect(response._body).to.have.property('error').to.equal('Please specify all fields');
     });
@@ -136,7 +136,7 @@ describe('Users controllers', () => {
       await chai.request(app).post('/users/signup').send(originalUser);
 
       const response = await (chai.request(app).post('/users/login').send(user));
-      
+
       expect(response).to.have.status(400);
       expect(response._body).to.have.property('error').to.equal('Invalid credentials');
     });
@@ -158,7 +158,7 @@ describe('Users controllers', () => {
       await chai.request(app).post('/users/signup').send(originalUser);
 
       const response = await (chai.request(app).post('/users/login').send(user));
-      
+
       expect(response).to.have.status(400);
       expect(response._body).to.have.property('error').to.equal('Invalid credentials');
     });
@@ -187,10 +187,10 @@ describe('Users controllers', () => {
 
       // This section queries the refresh table to ensure correctness
       const decoded = jwt.verify(response._body.token, process.env.JWT_SECRET);
-      const { uid } = decoded;
+      const {uid} = decoded;
 
       const refreshTokenData = await refreshTokensModel.getRefreshTokenByUid(uid);
-      
+
       expect(refreshTokenData).to.have.property('uid').to.be.equal(uid);
       expect(refreshTokenData).to.have.property('rtid').to.be.a('number');
       expect(refreshTokenData).to.have.property('created_at'); // Difficult to infer type
@@ -203,11 +203,11 @@ describe('Users controllers', () => {
     it('should return status 400 if any fields are missing', async () => {
       // This section submits an invalid refresh token via missing fields and checks the response body
       const refreshToken = {
-        refreshToken: ""
+        refreshToken: '',
       };
 
       const response = await (chai.request(app).post('/users/token').send(refreshToken));
-      
+
       expect(response).to.have.status(400);
       expect(response._body).to.have.property('error').to.equal('Please specify all fields');
     });
@@ -215,18 +215,18 @@ describe('Users controllers', () => {
     it('should return status 400 if refresh token is invalid', async () => {
       // This section submits an invalid refresh token and checks the response body
       const token = {
-        refreshToken: "randomTOKEN???"
+        refreshToken: 'randomTOKEN???',
       };
 
       const response = await (chai.request(app).post('/users/token').send(token));
-      
+
       expect(response).to.have.status(400);
       expect(response._body).to.have.property('error').to.equal('Invalid or expired refresh token');
     });
 
     it('should return status 400 if refresh token is expired', async () => {
       // Difficult to test without modifying routes
-    })
+    });
 
     it('should return status 400 if refresh token is valid but has been revoked', async () => {
       // This section submits a revoked refresh token and checks the response body
@@ -237,12 +237,12 @@ describe('Users controllers', () => {
         password: 'ryan4ever',
       };
 
-      const { _body: { uid, refreshToken }} = await chai.request(app).post('/users/signup').send(user);
+      const {_body: {uid, refreshToken}} = await chai.request(app).post('/users/signup').send(user);
 
-      await refreshTokensModel.deleteRefreshTokenByUid(uid)
+      await refreshTokensModel.deleteRefreshTokenByUid(uid);
 
       const response = await (chai.request(app).post('/users/token').send({refreshToken}));
-      
+
       expect(response).to.have.status(400);
       expect(response._body).to.have.property('error').to.equal('Revoked refresh token');
     });
@@ -256,12 +256,12 @@ describe('Users controllers', () => {
         password: 'ryan4ever',
       };
 
-      const { _body: { uid, refreshToken }} = await chai.request(app).post('/users/signup').send(user);
+      const {_body: {uid, refreshToken}} = await chai.request(app).post('/users/signup').send(user);
 
-      await refreshTokensModel.updateRefreshToken({uid, refreshToken: "NEW TOKEN"})
+      await refreshTokensModel.updateRefreshToken({uid, refreshToken: 'NEW TOKEN'});
 
       const response = await (chai.request(app).post('/users/token').send({refreshToken}));
-      
+
       expect(response).to.have.status(400);
       expect(response._body).to.have.property('error').to.equal('Overwritten refresh token');
     });
